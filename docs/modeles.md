@@ -17,9 +17,9 @@ STATION   1 ───── N RELEVE
 RELEVE    N ───── N TYPE_VELO   (porteur : nb_velos)
 ```
 
-- **COMMUNE – STATION** : une station est dans une seule commune, une commune a plusieurs stations (994 pour Paris, 30 pour Boulogne...). Côté station c'est (1,1), côté commune (0,N) car on peut charger des communes du département sans station Vélib'.
-- **STATION – RELEVE** : l'état d'une station change tout le temps, donc on ne peut pas mettre les vélos dispo dans STATION, sinon on écrase l'historique à chaque collecte. Un relevé = une station à un instant. (1,1) côté relevé, (0,N) côté station (station toute neuve pas encore relevée).
-- **RELEVE – TYPE_VELO** : dans le flux c'est un tableau `[{"mechanical": 8}, {"ebike": 1}]`. Plutôt que deux colonnes figées, on en fait une association avec le nombre de vélos comme attribut. Si Vélib' ajoute un type (vélo cargo par ex.) il suffit d'ajouter une ligne dans TYPE_VELO. C'est la seule N-N du modèle, elle devient la table `releve_velo`.
+- COMMUNE – STATION : une station est dans une seule commune, une commune a plusieurs stations (994 pour Paris, 30 pour Boulogne...). Côté station c'est (1,1), côté commune (0,N) car on peut charger des communes du département sans station Vélib'.
+- STATION – RELEVE : l'état d'une station change tout le temps, donc on ne peut pas mettre les vélos dispo dans STATION, sinon on écrase l'historique à chaque collecte. Un relevé = une station à un instant. (1,1) côté relevé, (0,N) côté station (station toute neuve pas encore relevée).
+- RELEVE – TYPE_VELO : dans le flux c'est un tableau `[{"mechanical": 8}, {"ebike": 1}]`. Plutôt que deux colonnes figées, on en fait une association avec le nombre de vélos comme attribut. Si Vélib' ajoute un type (vélo cargo par ex.) il suffit d'ajouter une ligne dans TYPE_VELO. C'est la seule N-N du modèle, elle devient la table `releve_velo`.
 
 Choix écartés :
 - les codes postaux (tableau dans l'API geo) : pas utiles pour le sujet, et Paris en a 21 pour un seul code INSEE, ça aurait demandé une table en plus pour rien.
