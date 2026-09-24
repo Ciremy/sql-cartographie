@@ -1,0 +1,46 @@
+// Modèle logique - à coller dans https://dbdiagram.io/d
+
+Table commune {
+  code_insee char(5) [pk]
+  nom varchar(100) [not null]
+  code_departement char(2) [not null]
+  population integer
+  surface_ha numeric(10,2)
+}
+
+Table station {
+  station_id bigint [pk, note: 'id GBFS']
+  code_station varchar(10) [unique, not null]
+  nom varchar(150) [not null]
+  latitude double [not null]
+  longitude double [not null]
+  capacite smallint [not null]
+  code_insee char(5) [not null, ref: > commune.code_insee]
+}
+
+Table type_velo {
+  type_velo_id serial [pk]
+  code varchar(20) [unique, not null]
+  libelle varchar(50) [not null]
+}
+
+Table releve {
+  releve_id bigserial [pk]
+  station_id bigint [not null, ref: > station.station_id]
+  date_collecte timestamptz [not null]
+  date_maj_station timestamptz [not null]
+  bornes_libres smallint [not null]
+  est_installee boolean [not null]
+  location_active boolean [not null]
+  retour_actif boolean [not null]
+
+  indexes {
+    (station_id, date_collecte) [unique]
+  }
+}
+
+Table releve_velo {
+  releve_id bigint [pk, ref: > releve.releve_id]
+  type_velo_id integer [pk, ref: > type_velo.type_velo_id]
+  nb_velos smallint [not null]
+}
