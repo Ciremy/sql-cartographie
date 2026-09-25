@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # conteneurs (CPU, mémoire, état)
+  - job_name: cadvisor
+    static_configs:
+      - targets: ["cadvisor:8080"]
+
+  - job_name: postgres
+    static_configs:
+      - targets: ["postgres-exporter:9187"]
+
+  - job_name: kafka
+    static_configs:
+      - targets: ["kafka-exporter:9308"]
+
+  # métriques exposées par nos scripts python
+  - job_name: producer
+    static_configs:
+      - targets: ["producer:8000"]
+
+  - job_name: source2
+    static_configs:
+      - targets: ["source2:8000"]
+
+  - job_name: aggregator
+    static_configs:
+      - targets: ["aggregator:8000"]

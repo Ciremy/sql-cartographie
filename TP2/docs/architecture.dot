@@ -1,0 +1,60 @@
+// schéma d'architecture - rendu avec : dot -Tpng architecture.dot -o architecture.png
+digraph archi {
+  rankdir=LR;
+  fontname="DejaVu Sans"; fontsize=12;
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff", fontname="DejaVu Sans", fontsize=11];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#555555"];
+
+  subgraph cluster_ext {
+    label="Sources externes"; style="dashed"; color="#999999";
+    api  [label="API GBFS Vélib'\nstation_status.json", fillcolor="#fde7c8"];
+    csv  [label="Paris Data\nexport CSV stations", fillcolor="#fde7c8"];
+  }
+
+  subgraph cluster_docker {
+    label="docker compose (réseau velib-pipeline)"; color="#4a7bd0";
+
+    producer   [label="producer\n(python)"];
+    kafka      [label="kafka\ntopic velib-status", fillcolor="#e3ecfb"];
+    source2    [label="source2\n(python, 1x/heure)"];
+    aggregator [label="aggregator\n(consumer python)"];
+    lake       [label="Data Lake\n./datalake/data\nraw/api | raw/source2\naggregated | clean", shape=folder, fillcolor="#e8f5e1"];
+    spark      [label="spark\n(PySpark, toutes les 2 min)"];
+    postgres   [label="postgres\n(schéma TP1)", shape=cylinder, fillcolor="#e3ecfb"];
+    dataviz    [label="dataviz\n(Streamlit :8501)", fillcolor="#f3e3fb"];
+
+    subgraph cluster_mon {
+      label="monitoring"; style="dashed"; color="#c0392b";
+      prometheus [label="prometheus :9090"];
+      grafana    [label="grafana :3000", fillcolor="#f3e3fb"];
+      cadvisor   [label="cadvisor"];
+      pgexp      [label="postgres-exporter"];
+      kexp       [label="kafka-exporter"];
+    }
+  }
+
+  api -> producer [label="HTTP / 60 s"];
+  producer -> kafka [label="1 msg / station"];
+  kafka -> aggregator;
+  csv -> source2 [label="HTTP"];
+  source2 -> lake [label="raw/source2"];
+  lake -> aggregator [label="référentiel", style=dashed];
+  aggregator -> lake [label="raw/api + aggregated"];
+  lake -> spark [label="aggregated"];
+  spark -> lake [label="clean (parquet)", style=dashed];
+  spark -> postgres [label="JDBC + upsert"];
+  postgres -> dataviz;
+
+  cadvisor -> prometheus [style=dotted];
+  pgexp -> prometheus [style=dotted];
+  kexp -> prometheus [style=dotted];
+  producer -> prometheus [style=dotted, label="/metrics"];
+  aggregator -> prometheus [style=dotted];
+  source2 -> prometheus [style=dotted];
+  prometheus -> grafana;
+  postgres -> pgexp [style=dotted];
+  kafka -> kexp [style=dotted];
+
+  // volumes docker
+  vols [label="volumes : kafka-data, pg-data,\nprometheus-data, grafana-data\n+ bind mount ./datalake/data", shape=note, fillcolor="#fffbe0"];
+}

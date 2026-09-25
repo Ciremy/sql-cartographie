@@ -1,0 +1,45 @@
+# requêtes perso pour suivre le pipeline (table pipeline_run remplie par Spark)
+velib_pipeline:
+  query: |
+    SELECT COUNT(*) AS runs,
+           COALESCE(SUM(lignes_raw), 0) AS lignes_raw,
+           COALESCE(SUM(lignes_rejetees), 0) AS lignes_rejetees,
+           COALESCE(SUM(doublons), 0) AS doublons,
+           COALESCE(SUM(lignes_chargees), 0) AS lignes_chargees,
+           COALESCE(EXTRACT(EPOCH FROM MAX(fin)), 0) AS dernier_run
+    FROM pipeline_run
+  metrics:
+    - runs:
+        usage: GAUGE
+        description: Nombre d'exécutions du job Spark
+    - lignes_raw:
+        usage: GAUGE
+        description: Lignes lues dans le data lake par Spark
+    - lignes_rejetees:
+        usage: GAUGE
+        description: Lignes rejetées (valeurs manquantes ou incohérentes)
+    - doublons:
+        usage: GAUGE
+        description: Lignes en double écartées
+    - lignes_chargees:
+        usage: GAUGE
+        description: Relevés chargés dans PostgreSQL
+    - dernier_run:
+        usage: GAUGE
+        description: Date de fin du dernier job Spark (timestamp)
+
+velib_tables:
+  query: |
+    SELECT (SELECT COUNT(*) FROM station) AS stations,
+           (SELECT COUNT(*) FROM commune) AS communes,
+           (SELECT COUNT(*) FROM releve) AS releves
+  metrics:
+    - stations:
+        usage: GAUGE
+        description: Stations dans la base
+    - communes:
+        usage: GAUGE
+        description: Communes dans la base
+    - releves:
+        usage: GAUGE
+        description: Nombre de relevés dans la base
