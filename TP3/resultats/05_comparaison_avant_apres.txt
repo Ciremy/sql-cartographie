@@ -1,0 +1,22 @@
+ id_controle | dimension  |                           libelle                            | anomalies_avant | taux_avant | anomalies_apres | taux_apres | statut  
+-------------+------------+--------------------------------------------------------------+-----------------+------------+-----------------+------------+---------
+ C1          | Complétude | Code station renseigné                                       |           19747 |       0.94 |               0 |       0.00 | OK
+ C2          | Complétude | Répartition mécanique / électrique renseignée                |           19747 |       0.94 |               0 |       0.00 | OK
+ C3          | Complétude | Infos station renseignées (nom, capacité, position, commune) |          206584 |       9.88 |               0 |       0.00 | OK
+ C4          | Complétude | Collectes présentes (1 par minute attendue)                  |            2915 |      67.93 |            2915 |      67.93 | accepté
+ U1          | Unicité    | Un seul relevé par station et par collecte                   |               0 |       0.00 |               0 |       0.00 | OK
+ U2          | Unicité    | Un code station = un seul identifiant station                |               0 |       0.00 |               0 |       0.00 | OK
+ V1          | Validité   | Capacité strictement positive                                |            3670 |       0.19 |               0 |       0.00 | OK
+ V2          | Validité   | Compteurs de vélos et de bornes positifs                     |               0 |       0.00 |               0 |       0.00 | OK
+ V3          | Validité   | Coordonnées dans l'Île-de-France                             |               0 |       0.00 |               0 |       0.00 | OK
+ V4          | Validité   | Code INSEE sur 5 chiffres et département francilien          |               0 |       0.00 |               0 |       0.00 | OK
+ V5          | Validité   | Nom de station sans espaces en trop                          |            8680 |       0.46 |               0 |       0.00 | OK
+ V6          | Validité   | Mise à jour station antérieure à la collecte                 |            2998 |       0.14 |               0 |       0.00 | OK
+ K1          | Cohérence  | Total vélos = mécaniques + électriques                       |               0 |       0.00 |               0 |       0.00 | OK
+ K2          | Cohérence  | Vélos + bornes libres <= capacité                            |           13949 |       0.74 |           15363 |       0.74 | accepté
+ K3          | Cohérence  | Station qui a remonté une info dans les dernières 24 h       |           18043 |       0.86 |               0 |       0.00 | OK
+ K4          | Cohérence  | Un code INSEE = un seul nom de commune                       |               0 |       0.00 |               0 |       0.00 | OK
+ I1          | Intégrité  | Code station connu du référentiel                            |               0 |       0.00 |               0 |       0.00 | OK
+ I2          | Intégrité  | Relevé rattachable à une station et une commune (FK cible)   |          206584 |       9.88 |               0 |       0.00 | OK
+(18 rows)
+

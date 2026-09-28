@@ -1,0 +1,13 @@
+                    indicateur                     | base_tp2 | base_nettoyee | ecart  
+---------------------------------------------------+----------+---------------+--------
+ Relevés                                           |  1879889 |       2071244 | 191355
+ Stations                                          |     1517 |          1517 |      0
+ Communes                                          |       69 |            69 |      0
+ Collectes distinctes                              |     1240 |          1376 |    136
+ Relevés sans détail mécanique + électrique        |        0 |             0 |      0
+ Stations sans aucun relevé                        |        0 |            10 |     10
+ Relevés de stations muettes (> 24 h)              |    13331 |             0 | -13331
+ Relevés dont la mise à jour est après la collecte |     2998 |             0 |  -2998
+ Noms de station avec espaces en trop              |        0 |             0 |      0
+(9 rows)
+

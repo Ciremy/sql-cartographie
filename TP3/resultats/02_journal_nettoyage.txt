@@ -1,0 +1,16 @@
+ ordre |                              regle                               | controle |    action    | nb_lignes 
+-------+------------------------------------------------------------------+----------+--------------+-----------
+     1 | R1 - heure de collecte recalée sur la dernière mise à jour reçue | V6       | correction   |      3038
+     2 | R2 - code station repris depuis le station_id                    | C1       | substitution |     19747
+     3 | R3 - répartition impossible à imputer (pas de voisin)            | C2       | suppression  |         0
+     3 | R3 - répartition imputée depuis le relevé voisin                 | C2       | imputation   |     19747
+     4 | R4 - fichiers référentiel écartés (vides)                        | C3       | suppression  |      4549
+     4 | R4 - infos station reprises du dernier référentiel valide        | C3       | substitution |    206584
+     5 | R5 - noms de station sans espaces en trop                        | V5       | correction   |      9632
+     6 | R6 - relevés de stations à capacité 0                            | V1       | suppression  |      4078
+     7 | R7 - relevés de stations muettes depuis plus de 24 h             | K3       | suppression  |     14822
+     8 | R8 - relevés impossibles à rattacher                             | I2       | suppression  |         0
+     9 | R9 - doublons station / collecte                                 | U1       | suppression  |         0
+    10 | K2 - vélos + bornes > capacité (surplus accepté par Vélib')      | K2       | aucune       |     15363
+(12 rows)
+

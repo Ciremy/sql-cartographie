@@ -1,0 +1,8 @@
+ table_cible |  count  
+-------------+---------
+ commune     |      69
+ station     |    1517
+ releve      | 2071244
+ releve_velo | 4142488
+(4 rows)
+

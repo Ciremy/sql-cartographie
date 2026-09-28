@@ -1,0 +1,22 @@
+ id_controle | dimension  |                           libelle                            | nb_controle | nb_anomalies | taux_pct 
+-------------+------------+--------------------------------------------------------------+-------------+--------------+----------
+ C1          | Complétude | Code station renseigné                                       |     2071244 |            0 |     0.00
+ C2          | Complétude | Répartition mécanique / électrique renseignée                |     2071244 |            0 |     0.00
+ C3          | Complétude | Infos station renseignées (nom, capacité, position, commune) |     2071244 |            0 |     0.00
+ C4          | Complétude | Collectes présentes (1 par minute attendue)                  |        4291 |         2915 |    67.93
+ I1          | Intégrité  | Code station connu du référentiel                            |     2071244 |            0 |     0.00
+ I2          | Intégrité  | Relevé rattachable à une station et une commune (FK cible)   |     2071244 |            0 |     0.00
+ K1          | Cohérence  | Total vélos = mécaniques + électriques                       |     2071244 |            0 |     0.00
+ K2          | Cohérence  | Vélos + bornes libres <= capacité                            |     2071244 |        15363 |     0.74
+ K3          | Cohérence  | Station qui a remonté une info dans les dernières 24 h       |     2071244 |            0 |     0.00
+ K4          | Cohérence  | Un code INSEE = un seul nom de commune                       |          69 |            0 |     0.00
+ U1          | Unicité    | Un seul relevé par station et par collecte                   |     2071244 |            0 |     0.00
+ U2          | Unicité    | Un code station = un seul identifiant station                |        1507 |            0 |     0.00
+ V1          | Validité   | Capacité strictement positive                                |     2071244 |            0 |     0.00
+ V2          | Validité   | Compteurs de vélos et de bornes positifs                     |     2071244 |            0 |     0.00
+ V3          | Validité   | Coordonnées dans l'Île-de-France                             |     2071244 |            0 |     0.00
+ V4          | Validité   | Code INSEE sur 5 chiffres et département francilien          |     2071244 |            0 |     0.00
+ V5          | Validité   | Nom de station sans espaces en trop                          |     2071244 |            0 |     0.00
+ V6          | Validité   | Mise à jour station antérieure à la collecte                 |     2071244 |            0 |     0.00
+(18 rows)
+
